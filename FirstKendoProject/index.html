@@ -11,11 +11,11 @@
 
 		<link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
 		<link href="styles/main.css" rel="stylesheet" />
-		<script src="kendo/js/jquery1.7.2.js"></script>
+		<script src="kendo/js/jquery-1.9.1.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function () {
-                alert("Button Clicked!");
 				$("#loadbtn").click(function () {
+                    alert("Button Clicked!");
 					$.ajax({
 						type: "POST",
 						url: "http://192.168.1.32:8091/WebService.asmx/loadgrid",
