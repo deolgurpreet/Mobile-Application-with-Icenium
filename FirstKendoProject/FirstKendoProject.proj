@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="kendo\js\jquery-1.9.1.js" />
     <Content Include="kendo\js\jquery.min.js" />
+    <Content Include="kendo\js\jquery1.7.2.js" />
     <Content Include="kendo\js\kendo.mobile.min.js" />
     <Content Include="kendo\styles\images\back.png" />
     <Content Include="kendo\styles\images\KendoUI.ttf" />
