@@ -12,37 +12,37 @@
 		<link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
 		<link href="styles/main.css" rel="stylesheet" />
 		<script src="kendo/js/jquery-1.9.1.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function () {
-				$("#loadbtn").click(function () {
-                    alert("Button Clicked!");
-					$.ajax({
-						type: "POST",
-						url: "http://192.168.1.32:8091/WebService.asmx/loadgrid",
-						contentType: "application/json;charset=utf-8",
-						data: {},
-						dataType: "json",
-						success: function (data) {
-							var xmldoc = $.parseXML(data.d);
-							$xml = $(xmldoc);
-							$("#divData tr").not($("#divData tr td")).remove();
-                            $("#divData").append("<Table>");
-							$xml.find("Table").each(function () {
-								$UserId = $(this).find("UserId").text();
-								$UserName = $(this).find("UserName").text();
-								$UserLocation = $(this).find("UserLocation").text();
+		<!--<script type="text/javascript">
+		$(document).ready(function () {
+		$("#loadbtn").click(function () {
+		alert("Button Clicked!");
+		$.ajax({
+		type: "POST",
+		url: "http://192.168.1.32:8091/WebService.asmx/loadgrid",
+		contentType: "application/json;charset=utf-8",
+		data: {},
+		dataType: "json",
+		success: function (data) {
+		var xmldoc = $.parseXML(data.d);
+		$xml = $(xmldoc);
+		//$("#divData tr").not($("#divData tr td")).remove();
+		$("#divData").append("<Table>");
+		$xml.find("Table").each(function () {
+		$UserId = $(this).find("UserId").text();
+		$UserName = $(this).find("UserName").text();
+		$UserLocation = $(this).find("UserLocation").text();
 			
-								$("#divData").append("<tr><td>" + $UserId + "</td><td>" + $UserName + "</td><td>" + $UserLocation + "</td><td><a href='#' id='" + $UserId + "' class='editing' onclick='editclick()'>Edit</a></td></tr>");
-							});
-						}
-                                    $("#divData").append("</Table>");
-					});
-				});
-			});
-		</script>
+		$("#divData").append("<tr><td>" + $UserId + "</td><td>" + $UserName + "</td><td>" + $UserLocation + "</td><td><a href='#' id='" + $UserId + "' class='editing' onclick='editclick()'>Edit</a></td></tr>");
+		});
+		}
+		$("#divData").append("</Table>");
+		});
+		});
+		});
+		</script>-->
 	</head>
 	<body>
-		<div data-role="view" id="tabstrip-home" data-title="Hello World!">
+		<div data-role="view" id="tabstrip-home" data-title="Mobile App">
 			<h1>Welcome!</h1>
 			<p>
 				Icenium&trade; enables you to build cross-platform device applications regardless of your
@@ -51,7 +51,7 @@
 			</p>
 		</div>
 
-		<div data-role="view" id="tabstrip-uiinteraction" data-title="UI Interaction">
+		<div data-role="view" id="tabstrip-uiinteraction" data-title="Mobile App">
 			<h1>Say Hello!</h1>
 			<div id='helloWorldInput'>
 				<label for="txtName" style="display: inline-block;">Enter your name:</label>
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 
-		<div data-role="view" id="tabstrip-geolocation" data-title="Geolocation">
+		<div data-role="view" id="tabstrip-geolocation" data-title="Mobile App">
 			<h1>My Location</h1>
 			<div id="geoLocationContainer">
 				<div id="myLocation">Unable to get location information. Please check your network connection and try again.</div>
@@ -72,35 +72,123 @@
 				<div id="map_canvas"></div>
 			</div>
 		</div>
-		<div data-role="view" id="tabstrip-user" data-title="Get Users">
+
+		<div data-role="view" id="tabstrip-user" data-title="Mobile App">
 			<h1>Users</h1>
 			<div id="getUsers">
-				<a id="loadbtn" data-role="button" data-icon="refresh">Load Users</a>
+				<table id="users"></table>
+				<!--<script>
+                    // document ready function
+
+    $(function() {
+
+
+        // select the employees table from the page and
+        // store it in a variable for later use.
+        var $users = $("#users");
+
+
+        // make an ajax call to the employees WebAPI service
+        // to retrieve a JSON response of all the employees
+        $.ajax({
+
+            // the url to the service
+            url: "http://192.168.1.32:8091/WebService.asmx/loadgrid",
+
+            // the format that the data should be in when
+            // it is returned
+            contentType: "json",
+
+            // the function that executes when the server
+            // responds to this ajax request successfully
+            success: function(data) {
+
+alert("Success");
+                // iterate over the data items returned from the server
+                // the index variable is the position in the colleciton.
+                // the item variable is the item itself
+                $.each(data, function(index, item){
+
+                    $users.append("<tr><td>" + item.UserId + "</td>" +
+													  "<td>" + item.UserName + "</td>" +
+													  "<td>" + item.UserLocation + "</td></tr>");
+                    
+                    // append the first and last name to the table
+                    //$employees.append("<tr><td>" + item.FirstName + "</td>" +
+                    //                      "<td>" + item.LastName + "</td>");
+
+                });
+
+              }
+
+        });
+
+    });
+					// document ready function
+					//$(function() {
+						//// select the employees table from the page and
+						//// store it in a variable for later use.
+						//var $employees = $("#employees");
+					
+						//// make an ajax call to the employees WebAPI service
+						//// to retrieve a JSON response of all the employees
+						//$.ajax({
+							//type: "POST",
+							//url: "http://192.168.1.32:8091/WebService.asmx/loadgrid",
+							//contentType: "json",
+							//data: {},
+							//dataType: "json",
+							//success: function (data) {
+								// iterate over the data items returned from the server
+								// the index variable is the position in the colleciton.
+								// the item variable is the item itself
+								//$.each(data, function(index, item) {
+									// append the first and last name to the table
+									//$employees.append("<tr><td>" + item.UserId + "</td>" +
+											//		  "<td>" + item.UserName + "</td>" +
+													//  "<td>" + itemUserLocation + "</td></tr>");
+								//});
+								//var xmldoc = $.parseXML(data.d);
+								//$xml = $(xmldoc);
+								////$("#divData tr").not($("#divData tr td")).remove();
+								//$("#divData").append("<Table>");
+								//$xml.find("Table").each(function () {
+								//	$UserId = $(this).find("UserId").text();
+								//	$UserName = $(this).find("UserName").text();
+								//	$UserLocation = $(this).find("UserLocation").text();
+								//	$("#divData").append("<tr><td>" + $UserId + "</td><td>" + $UserName + "</td><td>" + $UserLocation + "</td><td><a href='#' id='" + $UserId + "' class='editing' onclick='editclick()'>Edit</a></td></tr>");
+								//});
+							//}
+							//$("#divData").append("</Table>");
+						//});
+					//});					
+				</script>
+				<!--<a id="loadbtn" data-role="button" data-icon="refresh">Load Users</a>
 				<div id="divData">
-				</div>
+				</div>-->
 			</div>
 		</div>
-			
+
 		<div data-role="layout" data-id="mobile-tabstrip">
 			<header data-role="header">
 				<div data-role="navbar">
 					<span data-role="view-title"></span>
 				</div>
 			</header>
-				
+		
 			<div data-role="footer">
 				<div data-role="tabstrip">
 					<a href="#tabstrip-home" data-icon="home">Home</a>
 					<a href="#tabstrip-uiinteraction" data-icon="share">UI Interaction</a>
 					<a href="#tabstrip-geolocation" data-icon="globe">Geolocation</a>
-					<a href="#tabstrip-user" data-icon="user">Get users</a>
+					<a href="#tabstrip-user" data-icon="user">Get Users</a>
 				</div>
 			</div>
 		</div>
-			
+				
 		<script>
 			var app = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip" });
 		</script>
 	</body>
 </html>
-	
+			
